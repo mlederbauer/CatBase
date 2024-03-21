@@ -2,7 +2,7 @@
 
 import typer
 
-from cat_base.data import create_database
+from cat_base.data import create_database, list_databases
 
 app = typer.Typer()
 
@@ -22,3 +22,11 @@ def create(
     typer.echo(f"Creating database {database_name} in {pdf_directory}")
 
     create_database(database_name, pdf_directory)
+
+
+@app.command()
+def list() -> None:
+    """List all databases."""
+    typer.echo("Listing databases:")
+
+    list_databases()
