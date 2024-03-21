@@ -2,6 +2,7 @@ import os
 from collections import defaultdict
 
 import openai
+from langchain_community.document_loaders import ArxivLoader
 from llama_index.core import Document, SimpleDirectoryReader
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -24,7 +25,9 @@ def parse_metadata(document: Document) -> dict:
         authors_list.append(line.strip())
     authors = ", ".join(authors_list)
 
-    summary_lines = lines[authors_end_idx + 1 : authors_end_idx + 11]  # Get next 10 lines
+    summary_lines = lines[
+        authors_end_idx + 1 : authors_end_idx + 11
+    ]  # Get next 10 lines
     summary = "\n".join(summary_lines)
 
     return {
@@ -62,7 +65,9 @@ def combine_documents(documents: list[Document]) -> list[Document]:
 
 def parse_documents(pdf_directory: str) -> list:
     input_files = [
-        f"{pdf_directory}/{pdf}" for pdf in os.listdir(pdf_directory) if pdf.endswith(".pdf")
+        f"{pdf_directory}/{pdf}"
+        for pdf in os.listdir(pdf_directory)
+        if pdf.endswith(".pdf")
     ]
 
     documents = SimpleDirectoryReader(input_files=input_files).load_data()
@@ -76,3 +81,16 @@ def parse_documents(pdf_directory: str) -> list:
         doc.metadata = metadata
 
     return full_text_documents
+
+
+def get_arxiv_documents(keyword_list: str, max_docs: int) -> list:
+    for keyword in keyword_list.split(","):
+        docs = ArxivLoader(
+            query=keyword, load_max_docs=max_docs, load_all_available_meta=True
+        ).load()
+        print(
+            f"Loaded {len(docs)} documents from arXiv with keyword '{keyword}'."
+        )
+
+    # Placeholder for fetching documents from arXiv
+    return []
