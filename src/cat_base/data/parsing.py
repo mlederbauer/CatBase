@@ -67,9 +67,9 @@ def parse_documents(pdf_directory: str) -> list:
 
     documents = SimpleDirectoryReader(input_files=input_files).load_data()
 
-    print(f"Loaded {len(documents)} documents")
-
     full_text_documents = combine_documents(documents)
+
+    print(f"Loaded {len(documents)} pages from {len(input_files)} PDF files.")
 
     for doc in full_text_documents:
         metadata = parse_metadata(doc)

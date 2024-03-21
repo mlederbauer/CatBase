@@ -20,14 +20,15 @@ def create_database_from_documents(database_name, documents) -> chromadb.Collect
     )
     chunked_docs = chunker.chunk_documents(documents)
 
-    print(f"Chunked {len(chunked_docs)} documents")
+    print(f"Chunked them into {len(chunked_docs)} documents")
 
     chroma_client = chromadb.PersistentClient()
     embedding_function = get_embedding_function()
 
     # create a collection
     collection = chroma_client.get_or_create_collection(
-        name=database_name, embedding_function=embedding_function
+        name=database_name,
+        embedding_function=embedding_function,  # type: ignore[arg-type]
     )
 
     for chunked_doc in chunked_docs:
