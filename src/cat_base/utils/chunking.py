@@ -49,12 +49,12 @@ class Chunker:
         """Chunks a list of Document objects and returns a new list of Document objects for each chunk."""
         chunked_docs = []
         for doc in documents:
-            chunks = self.create_text_chunks(doc.page_content)  # type: ignore[attr-defined]
+            chunks = self.create_text_chunks(doc.text)  # type: ignore[attr-defined]
             base_entry_id = doc.metadata["entry_id"].split("_chunk_")[0]
             for chunk_index, chunk in enumerate(chunks):
                 chunk_metadata = doc.metadata.copy()
                 chunk_metadata["entry_id"] = f"{base_entry_id}_chunk_{chunk_index}"
-                chunk_to_add = Document(page_content=chunk, metadata=chunk_metadata)  # type: ignore[call-arg]
+                chunk_to_add = Document(text=chunk, metadata=chunk_metadata)  # type: ignore[call-arg]
                 chunked_docs.append(chunk_to_add)
 
         return chunked_docs
