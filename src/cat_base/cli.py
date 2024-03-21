@@ -14,7 +14,10 @@ def say(message: str = "") -> None:
 
 
 @app.command()
-def create(database_name: str, pdf_directory: str) -> None:
+def create(
+    database_name: str = typer.Option(..., "-n", "--database-name"),
+    pdf_directory: str = typer.Option(..., "-d", "--pdf-directory"),
+) -> None:
     """Create a new database."""
     typer.echo(f"Creating database {database_name} in {pdf_directory}")
 
