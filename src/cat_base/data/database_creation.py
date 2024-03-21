@@ -11,7 +11,7 @@ from cat_base.utils.embedding import get_embedding_function
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-def create_database_from_documents(database_name, documents) -> chromadb.Collection:
+def create_database(database_name, documents) -> chromadb.Collection:
     chunker = Chunker(
         chunk_size=3000,
         chunk_overlap=500,
@@ -39,3 +39,12 @@ def create_database_from_documents(database_name, documents) -> chromadb.Collect
         )
 
     return collection
+
+
+def list_databases() -> None:
+    """List all collections of persistent client."""
+    chroma_client = chromadb.PersistentClient()
+    collections = chroma_client.list_collections()
+
+    for collection in collections:
+        print(collection.name)

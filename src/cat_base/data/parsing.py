@@ -83,7 +83,10 @@ def parse_documents(pdf_directory: str) -> list:
     return full_text_documents
 
 
-def get_arxiv_documents(keyword_list: str, max_docs: int) -> list:
+def parse_arxiv(keyword_list: str, max_docs: int) -> list[Document]:
+
+    all_documents = []
+
     for keyword in keyword_list.split(","):
         docs = ArxivLoader(
             query=keyword, load_max_docs=max_docs, load_all_available_meta=True
@@ -92,5 +95,7 @@ def get_arxiv_documents(keyword_list: str, max_docs: int) -> list:
             f"Loaded {len(docs)} documents from arXiv with keyword '{keyword}'."
         )
 
+        all_documents.extend(docs)
     # Placeholder for fetching documents from arXiv
-    return []
+
+    return all_documents
