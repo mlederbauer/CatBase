@@ -83,12 +83,19 @@ def parse_documents(pdf_directory: str) -> list:
     return full_text_documents
 
 
-def parse_arxiv(keyword_list: str, max_docs: int) -> list[Document]:
+def parse_arxiv(keywords: str, max_docs: int) -> list[Document]:
+    """Parses documents from the Arxiv based on a list of keywords.
 
+    Args:
+    - keywords (str): A comma-separated string of keywords to search for.
+    - max_docs (int): The maximum number of documents to load for each keyword.
+
+    Returns:
+    - List[Document]: A list of Document objects with filtered metadata.
+    """
     all_documents = []
 
-    for keyword in keyword_list.split(","):
-
+    for keyword in keywords.split(","):
         docs = ArxivLoader(
             query=keyword, load_max_docs=max_docs, load_all_available_meta=True
         ).load()
@@ -96,31 +103,20 @@ def parse_arxiv(keyword_list: str, max_docs: int) -> list[Document]:
             f"Loaded {len(docs)} documents from arXiv with keyword '{keyword}'."
         )
 
-        # filter the metadata to only contain published, title, authors, summary
-        filtered_metadata = []
-
         for doc in docs:
-            filtered_metadata.append(
-                {
-                    "Published": doc.metadata["Published"],
-                    "Title": doc.metadata["Title"],
-                    "Authors": doc.metadata["Authors"],
-                    "Summary": doc.metadata["Summary"],
-                    "entry_id": doc.metadata["entry_id"],
-                }
-            )
+            # Initialize a dictionary with default values to avoid KeyError
+            metadata = {
+                "Published": doc.metadata.get("Published", "N/A"),
+                "Title": doc.metadata.get("Title", "No Title"),
+                "Authors": doc.metadata.get("Authors", []),
+                "Summary": doc.metadata.get("Summary", "No Summary"),
+                "entry_id": doc.metadata.get("entry_id", "No Entry ID"),
+            }
 
-        documents = []
+            # Update the document's metadata with the filtered metadata
+            doc.metadata = metadata
 
-        # set filtered_metadata to eb the metadata of the documents
-        for doc, meta in zip(docs, filtered_metadata, strict=False):
-            doc.metadata = meta
-
-            # out of every doc, create a Document object where the text is the page content and the metadata is the filtered metadata
-            documents.append(Document(text=doc.page_content, metadata=doc.metadata))  # type: ignore[call-arg]
-
-        all_documents.extend(documents)
-
-    # Placeholder for fetching documents from arXiv
+            # Create a Document object and add it to the all_documents list
+            all_documents.append(Document(text=doc.page_content, metadata=doc.metadata))  # type: ignore[call-arg]
 
     return all_documents
