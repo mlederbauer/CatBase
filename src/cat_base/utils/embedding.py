@@ -1,4 +1,4 @@
-from chomadb.api.types import Documents
+from chromadb.api.types import Documents
 from chromadb.utils import embedding_functions
 from chromadb.utils.embedding_functions import EmbeddingFunction
 
