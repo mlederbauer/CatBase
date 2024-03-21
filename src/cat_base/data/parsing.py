@@ -110,11 +110,16 @@ def parse_arxiv(keyword_list: str, max_docs: int) -> list[Document]:
                 }
             )
 
+        documents = []
+
         # set filtered_metadata to eb the metadata of the documents
         for doc, meta in zip(docs, filtered_metadata, strict=False):
             doc.metadata = meta
 
-        all_documents.extend(docs)
+            # out of every doc, create a Document object where the text is the page content and the metadata is the filtered metadata
+            documents.append(Document(text=doc.page_content, metadata=doc.metadata))  # type: ignore[call-arg]
+
+        all_documents.extend(documents)
 
     # Placeholder for fetching documents from arXiv
 
