@@ -88,6 +88,7 @@ def parse_arxiv(keyword_list: str, max_docs: int) -> list[Document]:
     all_documents = []
 
     for keyword in keyword_list.split(","):
+
         docs = ArxivLoader(
             query=keyword, load_max_docs=max_docs, load_all_available_meta=True
         ).load()
@@ -95,7 +96,26 @@ def parse_arxiv(keyword_list: str, max_docs: int) -> list[Document]:
             f"Loaded {len(docs)} documents from arXiv with keyword '{keyword}'."
         )
 
+        # filter the metadata to only contain published, title, authors, summary
+        filtered_metadata = []
+
+        for doc in docs:
+            filtered_metadata.append(
+                {
+                    "Published": doc.metadata["Published"],
+                    "Title": doc.metadata["Title"],
+                    "Authors": doc.metadata["Authors"],
+                    "Summary": doc.metadata["Summary"],
+                    "entry_id": doc.metadata["entry_id"],
+                }
+            )
+
+        # set filtered_metadata to eb the metadata of the documents
+        for doc, meta in zip(docs, filtered_metadata, strict=False):
+            doc.metadata = meta
+
         all_documents.extend(docs)
+
     # Placeholder for fetching documents from arXiv
 
     return all_documents
