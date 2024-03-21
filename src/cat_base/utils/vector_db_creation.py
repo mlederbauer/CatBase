@@ -1,11 +1,10 @@
-"""
-Classes and functions for processing documents into a vector database.
-"""
+"""Classes and functions for processing documents into a vector database."""
 
+from typing import Any
+
+import openai
 from chromadb import Documents, EmbeddingFunction, Embeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-import openai
-from typing import Any, List
 
 
 class Chunker:
@@ -16,8 +15,7 @@ class Chunker:
         tokenizer: Any,
         token_splitter: Any,
     ) -> None:
-        """
-        Initialize the Chunker class to chunk content (full documents or text) into smaller chunks.
+        """Initialize the Chunker class to chunk content (full documents or text) into smaller chunks.
 
         Args:
             chunk_size (int): The size of each chunk.
@@ -31,8 +29,7 @@ class Chunker:
         self.token_splitter = token_splitter
 
     def tiktoken_len(self, text_content: str) -> int:
-        """
-        Calculates the number of tokens in the given text content.
+        """Calculates the number of tokens in the given text content.
 
         Args:
             text_content (str): The text content to be tokenized.
@@ -43,9 +40,8 @@ class Chunker:
         tokens = self.tokenizer.encode(text_content, disallowed_special=())
         return len(tokens)
 
-    def create_text_chunks(self, text_content: str) -> List[str]:
-        """
-        Create text chunks from the given text content.
+    def create_text_chunks(self, text_content: str) -> list[str]:
+        """Create text chunks from the given text content.
 
         Args:
             text_content (str): The text content to be split into chunks.
@@ -88,12 +84,12 @@ class Chunker:
 #                 paper = snippet[next_newline_pos+1:] + paper
 #                 snippet = snippet[:next_newline_pos]
 
+
 #             yield snippet_idx, snippet.strip()
 #             snippet_idx += 1
 class EmbeddingGenerator(EmbeddingFunction):
     def __init__(self, embedding_model):
-        """
-        Initializes an EmbeddingGenerator object.
+        """Initializes an EmbeddingGenerator object.
 
         Args:
             embedding_model: The embedding model to be used for generating embeddings.
@@ -101,8 +97,7 @@ class EmbeddingGenerator(EmbeddingFunction):
         self.embedding_model = embedding_model
 
     def __call__(self, input: Documents) -> Embeddings:
-        """
-        Generates embeddings for the given input documents.
+        """Generates embeddings for the given input documents.
 
         Args:
             input: The input documents to generate embeddings for.
@@ -110,9 +105,7 @@ class EmbeddingGenerator(EmbeddingFunction):
         Returns:
             The generated embeddings.
         """
-        response = openai.embeddings.create(
-            input=input, model=self.embedding_model
-        )
+        response = openai.embeddings.create(input=input, model=self.embedding_model)
         embeddings = response.data[0].embedding
 
         return embeddings
