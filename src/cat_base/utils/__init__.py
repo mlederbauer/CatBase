@@ -1,1 +1,1 @@
-from .vector_db_creation import Chunker, EmbeddingGenerator
+from .chunking import Chunker
