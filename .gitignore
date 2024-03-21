@@ -12,6 +12,7 @@ reports/
 *.xls*
 *.zip*
 data/
+chroma/
 
 # direnv
 .envrc
