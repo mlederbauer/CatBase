@@ -20,8 +20,8 @@ def create(
 ) -> None:
     """Create a new database."""
     typer.echo(f"Creating database {database_name} in {pdf_directory}")
-
     create_database(database_name, pdf_directory)
+    typer.echo("Done! :)")
 
 
 @app.command()
