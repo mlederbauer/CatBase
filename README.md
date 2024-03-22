@@ -1,4 +1,6 @@
-![catbase](./assets/catbase.png){ width=20% }
+<div align="center">
+    <img src="./assets/catbase.png" alt="catbase" width="20%">
+</div>
 
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/to/do)
 
