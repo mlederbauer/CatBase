@@ -3,13 +3,16 @@ import os
 import chromadb
 import openai
 import tiktoken
+from dotenv import load_dotenv
 from langchain.text_splitter import SentenceTransformersTokenTextSplitter
 from llama_index.core import Document
 
 from cat_base.utils import Chunker
 from cat_base.utils.embedding import get_embedding_function
 
+load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
+CHROMA_DB_PATH = os.getenv("CHROMA_DB_PATH", "./chroma")
 
 
 def create_database(
@@ -35,7 +38,7 @@ def create_database(
 
     print(f"Chunked them into {len(chunked_docs)} documents")
 
-    chroma_client = chromadb.PersistentClient()
+    chroma_client = chromadb.PersistentClient(path=CHROMA_DB_PATH)
     embedding_function = get_embedding_function()
 
     # create a collection
