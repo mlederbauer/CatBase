@@ -4,9 +4,27 @@
 
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/to/do)
 
-# cat_base
+# CatBase – taking a pile of papers and creating a retrievable database
 
-TODO
+## Usage
+
+```shell
+cat-base --help
+```
+
+```shell
+cat-base list
+```
+
+```shell
+cat-base create -n {name of database} -d {path to folder containing pdf papers}
+```
+
+
+```shell
+cat-base arxiv -n {name of database} -k {list of keywords} (-m {max number of docs to retrieve})
+```
+
 
 ## Using
 
