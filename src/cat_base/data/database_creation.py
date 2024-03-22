@@ -4,6 +4,7 @@ import chromadb
 import openai
 import tiktoken
 from langchain.text_splitter import SentenceTransformersTokenTextSplitter
+from llama_index.core import Document
 
 from cat_base.utils import Chunker
 from cat_base.utils.embedding import get_embedding_function
@@ -11,7 +12,19 @@ from cat_base.utils.embedding import get_embedding_function
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-def create_database(database_name, documents) -> chromadb.Collection:
+def create_database(
+    database_name: str, documents: list[Document]
+) -> chromadb.Collection:
+    """Create a database collection and add documents to it.
+
+    Args:
+        database_name: The name of the database collection.
+        documents: A list of documents to be added to the collection.
+
+    Returns:
+        The created database collection.
+
+    """
     chunker = Chunker(
         chunk_size=3000,
         chunk_overlap=500,

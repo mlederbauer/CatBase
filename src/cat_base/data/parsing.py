@@ -1,21 +1,23 @@
 import os
 from collections import defaultdict
 
-import openai
 from langchain_community.document_loaders import ArxivLoader
 from llama_index.core import Document, SimpleDirectoryReader
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
-chroma_db_path = os.getenv("CHROMA_DB_PATH")
 
+def parse_metadata(document: Document) -> dict[str, str]:
+    """Parse metadata from a Document object.
 
-# Parse metadata from 'document_texts'
-def parse_metadata(document: Document) -> dict:
+    Args:
+    - document (Document): The Document object to parse metadata from.
+
+    Returns:
+    - dict: A dictionary containing the parsed metadata.
+    """
     document_text = document.text
     lines = document_text.split("\n")
     title = lines[0]  # Title is the first line
     authors_end_idx = 0
-    # Authors are from the 2nd line until an '*' and a new line is encountered
     authors_list = []
     for i, line in enumerate(lines[1:], start=1):  # Start from the second line
         if "*" in line:
@@ -31,39 +33,47 @@ def parse_metadata(document: Document) -> dict:
     summary = "\n".join(summary_lines)
 
     return {
-        "Published": "2000-00-00",  # Placeholder
+        "Published": "2000-00-00",  # Placeholder FIXME
         "Title": title,
         "Authors": authors,
         "Summary": summary,
-        "entry_id": document.id_,  # Assuming you want to keep the original Document ID
+        "entry_id": document.id_,
     }
 
 
 def combine_documents(documents: list[Document]) -> list[Document]:
-    # Step 1: Group documents by 'file_name'
+    """Combine multiple Document objects into a single Document object.
+
+    Args:
+    - documents (List[Document]): The list of Document objects to combine.
+
+    Returns:
+    - List[Document]: A list of combined Document objects.
+    """
     docs_by_file_name = defaultdict(list)
     for doc in documents:
         file_name = doc.metadata.get("file_name")
         docs_by_file_name[file_name].append(doc)
 
-    # Step 2: Combine text for documents with the same 'file_name'
     combined_documents = []
     for file_name, docs in docs_by_file_name.items():
         combined_text = "\n\n".join([doc.text for doc in docs])
-
-        # Assuming the first document's metadata (except text-related) is representative
-        # for the combined document.
         combined_metadata = docs[0].metadata.copy()
-
-        # Create a new Document object for the combined text.
         combined_doc = Document(text=combined_text, metadata=combined_metadata)  # type: ignore[call-arg]
-
         combined_documents.append(combined_doc)
 
     return combined_documents
 
 
-def parse_documents(pdf_directory: str) -> list:
+def parse_documents(pdf_directory: str) -> list[Document]:
+    """Parse documents from a directory containing PDF files.
+
+    Args:
+    - pdf_directory (str): The path to the directory containing PDF files.
+
+    Returns:
+    - List[Document]: A list of parsed Document objects.
+    """
     input_files = [
         f"{pdf_directory}/{pdf}"
         for pdf in os.listdir(pdf_directory)
@@ -84,7 +94,7 @@ def parse_documents(pdf_directory: str) -> list:
 
 
 def parse_arxiv(keywords: str, max_docs: int) -> list[Document]:
-    """Parses documents from the Arxiv based on a list of keywords.
+    """Parse documents from the Arxiv based on a list of keywords.
 
     Args:
     - keywords (str): A comma-separated string of keywords to search for.
@@ -104,7 +114,6 @@ def parse_arxiv(keywords: str, max_docs: int) -> list[Document]:
         )
 
         for doc in docs:
-            # Initialize a dictionary with default values to avoid KeyError
             metadata = {
                 "Published": doc.metadata.get("Published", "N/A"),
                 "Title": doc.metadata.get("Title", "No Title"),
@@ -112,11 +121,7 @@ def parse_arxiv(keywords: str, max_docs: int) -> list[Document]:
                 "Summary": doc.metadata.get("Summary", "No Summary"),
                 "entry_id": doc.metadata.get("entry_id", "No Entry ID"),
             }
-
-            # Update the document's metadata with the filtered metadata
             doc.metadata = metadata
-
-            # Create a Document object and add it to the all_documents list
             all_documents.append(Document(text=doc.page_content, metadata=doc.metadata))  # type: ignore[call-arg]
 
     return all_documents
