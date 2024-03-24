@@ -59,7 +59,7 @@ def create_database(
 
 def list_databases() -> None:
     """List all collections of persistent client."""
-    chroma_client = chromadb.PersistentClient()
+    chroma_client = chromadb.PersistentClient(path=CHROMA_DB_PATH)
     collections = chroma_client.list_collections()
 
     for collection in collections:

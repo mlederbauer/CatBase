@@ -13,6 +13,12 @@ app = typer.Typer()
 
 
 @app.command()
+def hello(name: str = "Fellow Catalysis Enthusiast") -> None:
+    """Say hello to NAME."""
+    typer.echo(f"Hello {name}!")
+
+
+@app.command()
 def list() -> None:
     """List all databases."""
     typer.echo("Listing databases:")
