@@ -8,19 +8,24 @@
 
 ## Usage
 
+List the available commands:
 ```shell
 cat-base --help
 ```
 
+List all available databases on your local machine:
 ```shell
 cat-base list
 ```
 
+! Note that you need to initialize a `.env` file in the root directory defining the following variables: `OPENAI_API_KEY`, `CHROMA_DB_PATH` (the path to where you are storing your persistent vector databases).
+
+Create a new vector database (or add to an existing database) a directory of PDFs of research papers:
 ```shell
 cat-base create -n {name of database} -d {path to folder containing pdf papers}
 ```
 
-
+Create a new vector database (or add to an existing database) documents from the archive based on a list of keywords:
 ```shell
 cat-base arxiv -n {name of database} -k {list of keywords} (-m {max number of docs to retrieve})
 ```
