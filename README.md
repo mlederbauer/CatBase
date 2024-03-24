@@ -6,6 +6,15 @@
 
 # CatBase – take a pile of papers and create a retrievable database
 
+CatBase is a tool to take a pile of papers and create a retrievable database. It is a command line tool that can be used to create a database of papers from a folder of pdfs, or to search arXiv for papers and add them to the database. It's mascot is **Pholphi**, the phenolphthalein colored cat (who loves (data)bases) .
+
+## Installation
+
+```shell
+pip install cat-base
+```
+
+
 ## Usage
 
 ```shell
