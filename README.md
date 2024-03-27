@@ -11,35 +11,35 @@ CatBase is a tool to take a pile of papers and create a retrievable database. It
 ## Installation
 
 ```shell
-pip install cat-base
+pip install catbase
 ```
 
 
 ## Usage
 
 ```shell
-cat-base --help
+catbase --help
 ```
 
 ```shell
-cat-base list
+catbase list
 ```
 
 ```shell
-cat-base create -n {name of database} -d {path to folder containing pdf papers}
+catbase create -n {name of database} -d {path to folder containing pdf papers}
 ```
 
 
 ```shell
-cat-base arxiv -n {name of database} -k {list of keywords} (-m {max number of docs to retrieve})
+catbase arxiv -n {name of database} -k {list of keywords} (-m {max number of docs to retrieve})
 ```
 
 
 ## Using
 
-_Python package_: to add and install this package as a dependency of your project, run `poetry add cat-base`.
+_Python package_: to add and install this package as a dependency of your project, run `poetry add catbase`.
 
-_Python CLI_: to view this app's CLI commands once it's installed, run `cat-base --help`.
+_Python CLI_: to view this app's CLI commands once it's installed, run `catbase --help`.
 
 _Python application_: to serve this REST API, run `docker compose up app` and open [localhost:8000](http://localhost:8000) in your browser. Within the Dev Container, this is equivalent to running `poe api`.
 

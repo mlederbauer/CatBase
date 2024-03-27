@@ -1,8 +1,8 @@
-"""cat_base CLI."""
+"""catbase CLI."""
 
 import typer
 
-from cat_base.data import (
+from catbase.data import (
     create_database,
     delete_database,
     inspect_database,

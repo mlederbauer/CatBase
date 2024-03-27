@@ -3,7 +3,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]  # https://python-poetry.org/docs/pyproject/
-name = "cat-base"
+name = "catbase"
 version = "0.0.0"
 description = "TODO"
 authors = ["TODO <to@do.com>"]
@@ -11,7 +11,7 @@ readme = "README.md"
 repository = "https://github.com/to/do"
 
 [tool.poetry.scripts]  # https://python-poetry.org/docs/pyproject/#scripts
-cat-base = "cat_base.cli:app"
+catbase = "catbase.cli:app"
 
 [tool.poetry.dependencies]  # https://python-poetry.org/docs/dependency-specification/
 coloredlogs = ">=15.0.1"
@@ -97,7 +97,7 @@ convention = "google"
         --host $host \
         --port $port \
         --reload \
-        cat_base.api:app
+        catbase.api:app
     } else {
       gunicorn \
         --access-logfile - \
@@ -109,7 +109,7 @@ convention = "google"
         --worker-class uvicorn.workers.UvicornWorker \
         --worker-tmp-dir /dev/shm \
         --workers 2 \
-        cat_base.api:app
+        catbase.api:app
     } fi
     """
 
@@ -139,7 +139,7 @@ convention = "google"
       --server.address $host
       --server.port $port
       --theme.base light
-      src/cat_base/app.py
+      src/catbase/app.py
     """
   use_exec = true
 
@@ -161,7 +161,7 @@ convention = "google"
     pdoc
       --docformat $docformat
       --output-directory $outputdirectory
-      cat_base
+      catbase
     """
 
     [[tool.poe.tasks.docs.args]]

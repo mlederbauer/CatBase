@@ -1,4 +1,4 @@
-"""Test cat_base CLI."""
+"""Test catbase CLI."""
 
 from typer.testing import CliRunner
 

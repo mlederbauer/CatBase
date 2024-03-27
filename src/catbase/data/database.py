@@ -8,8 +8,8 @@ from dotenv import load_dotenv
 from langchain.text_splitter import SentenceTransformersTokenTextSplitter
 from llama_index.core import Document
 
-from cat_base.analysis import plot_UMAP
-from cat_base.utils import Chunker, get_embedding_function
+from catbase.analysis import plot_UMAP
+from catbase.utils import Chunker, get_embedding_function
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
