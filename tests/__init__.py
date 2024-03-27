@@ -1,1 +1,1 @@
-"""cat_base test suite."""
+"""catbase test suite."""

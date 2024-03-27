@@ -1,9 +1,9 @@
-"""Test cat_base REST API."""
+"""Test catbase REST API."""
 
 import httpx
 from fastapi.testclient import TestClient
 
-from cat_base.api import app
+from catbase.api import app
 
 client = TestClient(app)
 

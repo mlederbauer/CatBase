@@ -1,4 +1,4 @@
-"""cat_base REST API."""
+"""catbase REST API."""
 
 import logging
 

@@ -25,7 +25,7 @@ services:
       [
         "sh",
         "-c",
-        "sudo chown user $$SSH_AUTH_SOCK && cp --update /opt/build/poetry/poetry.lock /workspaces/cat-base/ && mkdir -p /workspaces/cat-base/.git/hooks/ && cp --update /opt/build/git/* /workspaces/cat-base/.git/hooks/ && zsh"
+        "sudo chown user $$SSH_AUTH_SOCK && cp --update /opt/build/poetry/poetry.lock /workspaces/catbase/ && mkdir -p /workspaces/catbase/.git/hooks/ && cp --update /opt/build/git/* /workspaces/catbase/.git/hooks/ && zsh"
       ]
     environment:
       - POETRY_PYPI_TOKEN_PYPI

@@ -15,12 +15,12 @@ RUN groupadd --gid $GID user && \
 USER user
 
 # Create and activate a virtual environment.
-ENV VIRTUAL_ENV /opt/cat-base-env
+ENV VIRTUAL_ENV /opt/catbase-env
 ENV PATH $VIRTUAL_ENV/bin:$PATH
 RUN python -m venv $VIRTUAL_ENV
 
 # Set the working directory.
-WORKDIR /workspaces/cat-base/
+WORKDIR /workspaces/catbase/
 
 
 
@@ -45,9 +45,9 @@ RUN --mount=type=cache,target=/var/cache/apt/ \
 USER user
 
 # Install the run time Python dependencies in the virtual environment.
-COPY --chown=user:user poetry.lock* pyproject.toml /workspaces/cat-base/
+COPY --chown=user:user poetry.lock* pyproject.toml /workspaces/catbase/
 RUN mkdir -p /home/user/.cache/pypoetry/ && mkdir -p /home/user/.config/pypoetry/ && \
-    mkdir -p src/cat_base/ && touch src/cat_base/__init__.py && touch README.md
+    mkdir -p src/catbase/ && touch src/catbase/__init__.py && touch README.md
 RUN --mount=type=cache,uid=$UID,gid=$GID,target=/home/user/.cache/pypoetry/ \
     poetry install --only main --no-interaction
 
@@ -71,7 +71,7 @@ RUN --mount=type=cache,uid=$UID,gid=$GID,target=/home/user/.cache/pypoetry/ \
     poetry install --no-interaction
 
 # Persist output generated during docker build so that we can restore it in the dev container.
-COPY --chown=user:user .pre-commit-config.yaml /workspaces/cat-base/
+COPY --chown=user:user .pre-commit-config.yaml /workspaces/catbase/
 RUN mkdir -p /opt/build/poetry/ && cp poetry.lock /opt/build/poetry/ && \
     git init && pre-commit install --install-hooks && \
     mkdir -p /opt/build/git/ && cp .git/hooks/commit-msg .git/hooks/pre-commit /opt/build/git/
@@ -104,5 +104,5 @@ COPY --from=poetry $VIRTUAL_ENV $VIRTUAL_ENV
 COPY --chown=user:user . .
 
 # Expose the application.
-ENTRYPOINT ["/opt/cat-base-env/bin/poe"]
+ENTRYPOINT ["/opt/catbase-env/bin/poe"]
 CMD ["api"]

@@ -11,7 +11,7 @@ CatBase is a tool to take a pile of papers and create a retrievable database. It
 ## Installation
 
 ```shell
-pip install cat-base
+pip install catbase
 ```
 
 
@@ -19,32 +19,32 @@ pip install cat-base
 
 List the available commands:
 ```shell
-cat-base --help
+catbase --help
 ```
 
 List all available databases on your local machine:
 ```shell
-cat-base list
+catbase list
 ```
 
 ! Note that you need to initialize a `.env` file in the root directory defining the following variables: `OPENAI_API_KEY`, `CHROMA_DB_PATH` (the path to where you are storing your persistent vector databases).
 
 Create a new vector database (or add to an existing database) a directory of PDFs of research papers:
 ```shell
-cat-base create -n {name of database} -d {path to folder containing pdf papers}
+catbase create -n {name of database} -d {path to folder containing pdf papers}
 ```
 
 Create a new vector database (or add to an existing database) documents from the archive based on a list of keywords:
 ```shell
-cat-base arxiv -n {name of database} -k {list of keywords} (-m {max number of docs to retrieve})
+catbase arxiv -n {name of database} -k {list of keywords} (-m {max number of docs to retrieve})
 ```
 
 
 ## Using
 
-_Python package_: to add and install this package as a dependency of your project, run `poetry add cat-base`.
+_Python package_: to add and install this package as a dependency of your project, run `poetry add catbase`.
 
-_Python CLI_: to view this app's CLI commands once it's installed, run `cat-base --help`.
+_Python CLI_: to view this app's CLI commands once it's installed, run `catbase --help`.
 
 _Python application_: to serve this REST API, run `docker compose up app` and open [localhost:8000](http://localhost:8000) in your browser. Within the Dev Container, this is equivalent to running `poe api`.
 

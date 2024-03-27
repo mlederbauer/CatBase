@@ -1,8 +1,8 @@
-"""Test cat_base."""
+"""Test catbase."""
 
-import cat_base
+import catbase
 
 
 def test_import() -> None:
     """Test that the package can be imported."""
-    assert isinstance(cat_base.__name__, str)
+    assert isinstance(catbase.__name__, str)

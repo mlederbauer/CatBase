@@ -4,7 +4,7 @@
   "checkout": null,
   "context": {
     "cookiecutter": {
-      "package_name": "cat_base",
+      "package_name": "catbase",
       "package_description": "TODO",
       "package_url": "https://github.com/to/do",
       "author_name": "TODO",
@@ -23,8 +23,8 @@
       "docstring_style": "Google",
       "private_package_repository_name": "",
       "private_package_repository_url": "",
-      "__package_name_kebab_case": "cat-base",
-      "__package_name_snake_case": "cat_base",
+      "__package_name_kebab_case": "catbase",
+      "__package_name_snake_case": "catbase",
       "_template": "https://github.com/radix-ai/poetry-cookiecutter"
     }
   },

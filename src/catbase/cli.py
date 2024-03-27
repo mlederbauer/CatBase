@@ -1,9 +1,11 @@
-"""cat_base CLI."""
+"""catbase CLI."""
 
 import typer
 
-from cat_base.data import (
+from catbase.data import (
     create_database,
+    delete_database,
+    inspect_database,
     list_databases,
     parse_arxiv,
     parse_documents,
@@ -22,8 +24,28 @@ def hello(name: str = "Fellow Catalysis Enthusiast") -> None:
 def list() -> None:
     """List all databases."""
     typer.echo("Listing databases:")
+    typer.echo("-----------------------------------")
     list_databases()
+    typer.echo("-----------------------------------")
     typer.echo("That's it! :)")
+
+
+@app.command()
+def pluck(
+    database_name: str = typer.Option(..., "-n", "--database-name")
+) -> None:
+    """Delete a selected database."""
+    delete_database(database_name)
+    typer.echo(f"Bye bye {database_name}!")
+
+
+@app.command()
+def inspect(
+    database_name: str = typer.Option(..., "-n", "--database-name"),
+    plot: bool = typer.Option(True, "-p", "--plot"),
+) -> None:
+    """Inspect vector database in human-readable format."""
+    inspect_database(database_name, plot)
 
 
 @app.command()
