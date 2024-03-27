@@ -41,10 +41,11 @@ def pluck(
 
 @app.command()
 def inspect(
-    database_name: str = typer.Option(..., "-n", "--database-name")
+    database_name: str = typer.Option(..., "-n", "--database-name"),
+    plot: bool = typer.Option(True, "-p", "--plot"),
 ) -> None:
     """Inspect vector database in human-readable format."""
-    inspect_database(database_name)
+    inspect_database(database_name, plot)
 
 
 @app.command()

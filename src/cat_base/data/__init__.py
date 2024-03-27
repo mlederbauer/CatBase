@@ -1,6 +1,7 @@
 from .database import (
     create_database,
     delete_database,
+    get_database,
     inspect_database,
     list_databases,
 )
