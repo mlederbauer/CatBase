@@ -13,6 +13,7 @@ reports/
 *.zip*
 chroma/
 pdfs/
+*.pdf
 
 # direnv
 .envrc
