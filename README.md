@@ -11,7 +11,11 @@ CatBase is a tool to take a pile of papers and create a retrievable database. It
 ## Installation
 
 ```shell
-pip install catbase
+git clone
+cd catbase
+conda create -f environment.yml
+conda activate catbase
+make install
 ```
 
 
