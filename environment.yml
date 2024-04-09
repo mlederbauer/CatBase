@@ -1,4 +1,4 @@
-name: catbaseenv
+name: catbase
 channels:
   - conda-forge
   - defaults
