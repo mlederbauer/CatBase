@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from langchain.text_splitter import SentenceTransformersTokenTextSplitter
 from llama_index.core import Document
 
-from catbase.analysis import plot_UMAP
+# from catbase.analysis import plot_UMAP
 from catbase.utils import Chunker, get_embedding_function
 
 load_dotenv()
@@ -97,9 +97,9 @@ def inspect_database(database_name: str, plot: bool = False) -> None:
     print(inspection_df["metadatas"][0]["Summary"])
     print(inspection_df["metadatas"][0].keys())
 
-    if plot:
-        embeddings = inspection_df["embeddings"]
-        plot_UMAP(embeddings)
+    # if plot:
+    #     embeddings = inspection_df["embeddings"]
+    #     plot_UMAP(embeddings)
 
     # TODO add some nicer human-readable format in here
     # TODO some visualization of the embeddings?
